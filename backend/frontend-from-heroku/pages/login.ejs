@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h2>I stole this frontend from the heroku default app template</h2>
+    <p>Backend challenge babey!!!!!!</p>
+    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/emily-chu/shopify-2021"><span class="glyphicon glyphicon-download"></span> Source code for this app</a>
+    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/node-js-getting-started"><span class="glyphicon glyphicon-download"></span> Source code for heroku template</a>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h3>Login</h3>
+      <form action="/dashboard" method="POST"> 
+        <div class="form-group">
+          <label>Username:</label>
+          <input type="text"
+            name="username"
+            required/>
+          </div>
+          <div class="form-group">
+            <label>Password:</label>
+            <input type="password"
+              name="password"
+              required/>
+        </div>
+        <button class="btn">Go</button>
+      </form>  
+      <hr>
+      <h6>Hint: Your username can be any of: shopify, emily, or wealthy-boi</h6>
+      <h6>Hint 2: Being a cybersecurity expert, I made all your passwords hunter2</h6>
+    </div>
+  </div> <!-- row -->
+   <!-- <div class="alert alert-info text-center" role="alert">
+    Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
+  </div> -->
+</div>
+
+
+</body>
+</html>
