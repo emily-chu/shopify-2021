@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Image stonks</title>
-  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/style.css" />
-  <link rel="icon" href="/favicon.ico" />
+  <%- include ("../partials/header.ejs") %>
 </head>
 
 <body>
+  <%- include ("../partials/nav.ejs") %>
   <div class="jumbotron text-center">
-    <p>Hello!</p>
-    <p>No frontend for now.</p>
+    <h2>Hello!</h2>
+    <p>This is the default page.</p>
+    <p>Either something went wrong, or you followed a link I didn't connect anything to yet. (sorry.)</p>
+    <a href="/login"><h3>Log in here</h3></a>
   </div>
 </body>
 

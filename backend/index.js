@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const server = require('./server');
 const path = require('path');
+const favicon = require('serve-favicon');
+
 require('dotenv').config();
 const uri = process.env.MONGO_URI;
 
@@ -26,22 +28,56 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
     // if (maybe && maybe.message) console.log(maybe.message);
 
     let myImages = await server.getImagesByIds(db, me.images);
-    console.log(myImages);
+    // console.log(myImages);
+
+    app.get('/', function(req, res){
+      res.render('pages/empty')
+    });
+
+    app.get('/login', function(req, res){
+      res.render('pages/login')
+    });
+
+    app.post('/dashboard', async function(req, res){
+      let user = await server.login(db, req.body.username, req.body.password);
+      if (user) {
+        let userImages = await server.getImagesByIds(db, user.images);
+        res.render('pages/dashboard', {user: user, images: userImages});
+      } else {
+        
+        let user = await server.login(db, 'emily', 'hunter2');
+        let userImages = await server.getImagesByIds(db, user.images);
+        res.render('pages/dashboard', {user: user, images: userImages});
+        
+        // res.redirect('/login');
+      }
+    });
+
+    app.get('/marketplace', function(req, res){
+      res.render('pages/empty')
+    });
+
+    app.get('/marketplace/:user', function(req, res){
+      res.render('pages/empty')
+    });
+
+    app.get('/image/:id', function(req, res){
+      res.render('pages/empty')
+    });
 
   } catch (err) {
     console.dir(err);
   }
 })();
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'frontend-from-heroku/public')));
-app.set('views', path.join(__dirname, 'frontend-from-heroku'));
-app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => res.render('pages/empty'));
-app.get('/purchase/:image', (req, res) => {
-  res.render('pages/login')
-})
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'frontend-from-heroku'));
+app.use(express.static(path.join(__dirname, 'frontend-from-heroku/public')));
+app.use(favicon(path.join(__dirname, 'frontend-from-heroku', 'public', 'favicon.ico')));
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
