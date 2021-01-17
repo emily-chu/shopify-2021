@@ -17,10 +17,16 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
     console.log('Connection to shopify_backend did not throw errors');
     //test here
 
-    // let test = await server.login(db, 'emily', 'hunter2')
-    // console.log(test);
+    let me = await server.login(db, 'emily', 'hunter2')
+    // console.log(me);
+
     // server.loadBank(db); 
-    server.purchase(db, '60033be117ec3383237a299a', '5ff7636667380a5942ec2f9d', '60033b339b34b5bd841276e3');
+
+    // const maybe = await server.purchase(db, '5ff7636667380a5942ec2f9d', 'BANK', '60033b339b34b5bd841276e3'); //me, bank, first image
+    // if (maybe && maybe.message) console.log(maybe.message);
+
+    let myImages = await server.getImagesByIds(db, me.images);
+    console.log(myImages);
 
   } catch (err) {
     console.dir(err);
