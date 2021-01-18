@@ -1,0 +1,25 @@
+<% if(!images.length){%>
+  <p>None to show.</p>
+<% } else { %>
+  <% for(let i=0; i<images.length; i++){%>
+    <% let imageId = images[i]._id.toString(); %> 
+
+    <a href=<%="/image/" + ownerName + "/" + imageId%>>
+      <div class="image-card" >
+        <img src= <%= images[i].download_url %>> 
+
+        <h4> Cost: $<%= images[i].cost %></h4>
+        <p> Author: <%= images[i].author %></p>
+
+        <% if((typeof user === 'object') && (user.username != ownerName)){%>
+          <form action="/purchase" method="post">
+            <input hidden name="seller" value=<%= ownerName %> >
+            <input hidden name="image" value=<%= imageId %> >
+            <button type="submit">Buy this image</button>
+          </form>
+        <% } %>
+      </div>
+    </a>
+  <% } %>
+<% } %>
+<br><br>

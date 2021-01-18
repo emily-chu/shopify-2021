@@ -19,7 +19,11 @@
               <li><a href="/login">Log out</a></li>
             </ul>
         </li>
-        <% } %>
+      <% } else if (typeof hideLoginNav === 'undefined') { %>
+        <li>
+          <a href="/login"><span class="glyphicon glyphicon-user"></span> Log in</a>
+        </li>
+      <% } %>
     </ul>
   </div>
 </nav>

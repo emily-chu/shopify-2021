@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include ("../partials/header.ejs") %>
+</head>
+
+<body>
+  <%- include ("../partials/nav.ejs", {user: user}) %>
+
+  <div class="container">
+    <h2>Image</h2>
+    <hr>
+    <image class="image-big-boy" src= <%= image.download_url %>></image>
+    <h3> Cost: $<%= image.cost %> </h3>
+    <% if((typeof user === 'object') && (user.username != ownerName)){%>
+      <form action="/purchase" method="post">
+        <input hidden name="seller" value=<%= ownerName %> >
+        <input hidden name="image" value=<%= image._id %> >
+        <button type="submit">Buy this image</button>
+      </form>
+    <% } %>
+    <h4> Author: <%= image.author %> </h4>
+    <h4> Width: <%= image.width %> px </h4>
+    <h4> Height: <%= image.height %> px </h4>
+    <h4> Source: <a href=<%= image.url %>>URL</a> </h4>
+  </div>
+
+</body>
+
+</html>

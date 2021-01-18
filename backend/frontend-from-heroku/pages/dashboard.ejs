@@ -6,19 +6,12 @@
 
 <body>
 
-  <%- include ("../partials/nav.ejs") %>
-
+  <%- include ("../partials/nav.ejs", {user: user}) %>
+  
   <div class="container">
-  <h2>Your images</h2>
-  <hr>
-    <% for(let i=0; i<images.length && i<20; i++){%>
-        <img src= <%= images[i].download_url %> >
-        <h4> Cost: $<%= images[i].cost %></h4>
-        <h5> Author: <%= images[i].author %></h5>
-      <% } %>
- 
-
-
+    <h2>Your images</h2>
+    <hr>
+    <%- include ("../partials/images.ejs", {images:images, ownerName:user.username}) %>
   </div>
 
 </body>

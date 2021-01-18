@@ -24,8 +24,33 @@
     border: 2px solid white; }
     .jumbotron .lang-logo img {
       max-width: 100%; }
-img {
-  max-width: 20%;
-  max-height: 20%;
+
+.image-card {
+  width: 200px;
+  max-height: auto;
+  background-color: #eee;
+  border-radius: 1rem;
+  margin:0.5rem;
+  padding:1rem;
+  display:inline-block;
+  box-shadow: .1rem .1rem .1rem #333;
 }
 
+.image-card img {
+  max-width: 180px;
+  align-items: center;
+  /* border-radius: 1rem; */
+}
+
+.image-big-boy {
+  max-width: 60%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+} 
+a:hover {
+  color: #845ac7;
+  text-decoration: none;
+} 

@@ -24,29 +24,51 @@ const login = async function(db, user, pass){
 };
 
 /**
+ * Get the public-facing data of all users (for marketplace)
+ * @param {MongoClient} db connection to shopify_backend
+ * @param {Number} perUser: return only the first x images
+ * @returns {Object[]}
+ */
+const getMarketplace = async function(db, show){
+  try {
+    const users = await db.collection('users').find().toArray();
+    // console.dir(users);
+    if (!users) {return {message: 'error in retrieving users'};}
+    const out = await Promise.all(
+      users.map(async (r)=>{
+        const imgList = await getImagesByIds(db, r.images, 0, show);
+        return({
+          username: r.username,
+          images: imgList,
+          more: Math.max(0, r.images.length - show)
+        });
+      })
+    );
+    return out || [];
+
+  } catch (err) {
+    console.dir(err);
+  }
+};
+
+/**
  * Get list of images by ids, hopefully asynchronously
  * @param {MongoClient} db connection to shopify_backend 
  * @param {ObjectId[]} idList list of image _ids, generally from one user, generally to render 
+ * @param {Number} ignoreBefore: index of first img to load
+ * @param {Number} endBefore: 1 + index of last img to load
  * @returns {Object[]}
  */
-const getImagesByIds = async function(db, idList) {
-
+const getImagesByIds = async function(db, idList, ignoreBefore, endBefore) {
   // Promise.all should prevent all ops happening in series (slow)
   // https://advancedweb.hu/how-to-use-async-functions-with-array-map-in-javascript/
+  if (!idList || idList.length === 0 || ignoreBefore >= endBefore) {return [];}
   const out = await Promise.all(
-    idList.map((id)=>getImageById(db, id))
+    idList.slice(ignoreBefore, endBefore)
+      .map((id)=>getImageById(db, id))
   );
-  return out || [];
-
-  // const out = await Promise.all(
-  //   idList.map(async (id) => {
-  //     const image = await db.collection('images')
-  //       .findOne({_id: ObjectId(id.toString())} );
-  //     return image;
-  //   })
-  // );
-  // return out || [];
-}
+  return out;
+};
 
 /**
  * Get one image document by its _id
@@ -62,7 +84,7 @@ const getImageById = async function(db, id) {
   } catch (err) {
     console.dir(err);
   }
-}
+};
 
 /**
  * Checks for valid purchase, then delegates updates to buy() and sell() functions
@@ -70,6 +92,7 @@ const getImageById = async function(db, id) {
  * @param {String} username of seller (must be the actual owner of the image)
  * @param {String | ObjectId} _id of buyer (more secure than username, I think)
  * @param {String | ObjectId} _id of image
+ * @returns {Object | undefined} out.message is defined if purchase failed
  */
 // https://docs.mongodb.com/drivers/node/fundamentals/crud/write-operations/change-a-document
 const purchase = async function(db, buyerArg, sellerName, imageArg){
@@ -94,19 +117,19 @@ const purchase = async function(db, buyerArg, sellerName, imageArg){
     console.dir(err);
     return {message: 'Database error in purchase()'};
   }
-}
+};
 
 /**
  * Checks if the list of _ids contains the specified _id
  * @param {ObjectId[]} list of image _id objects
  * @param {ObjectId} image _id
- * @returns {Object | undefined} // unsure
+ * @returns {Object | undefined} // unsure of this
  */
 const checkOwnership = function(idList, id) {
-  idList.find((i)=>{
+  return idList.find((i)=>{
     return i.toString() === id.toString(); 
   })
-}
+};
 
 /**
  * Modifies the buyer user's .images and .money
@@ -126,7 +149,7 @@ const buy = async function(db, buyer, image){
     (err, res) => {modified = res.result.nModified;}
   );
   // if (modified == 0) {}
-}
+};
 
 /**
  * Modifies the seller user's .images and .money
@@ -146,11 +169,12 @@ const sell = async function(db, seller, image){
     (err, res) => {modified = res.result.nModified;}
   );
   // if (modified == 0) {}
-}
+};
 
 /**
  * Initializes database with every photo picsum.photos has to offer; then adds these images to the Bank
  * @param {MongoClient} connection to shopify_backend
+ * @returns {Object | undefined} out.message is defined if purchase failed
  */
 const loadBank = async function(db) {
   let documents = [];
@@ -182,12 +206,13 @@ const loadBank = async function(db) {
   } catch (err) {
     return {message: 'Loading images to DB failed.'};
   }
-}
+};
 
 // public functions
 module.exports = {
   loadBank: loadBank,
   login: login,
+  getMarketplace: getMarketplace,
   getImageById: getImageById,
   getImagesByIds: getImagesByIds,
   purchase: purchase,

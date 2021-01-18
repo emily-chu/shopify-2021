@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include ("../partials/header.ejs") %>
+</head>
+
+<body>
+  <%- include ("../partials/nav.ejs", {user: user}) %>
+  <div class="jumbotron text-center">
+    <h2>Welcome to the marketplace!</h2>
+  </div>
+
+  <% if (typeof alert === 'string') { %> 
+    <div class="alert alert-info text-center" role="alert">
+      <%= alert %> 
+    </div>
+  <% } %>
+
+  <div class="container">
+    <% for(let i=0; i<marketplace.length; i++){%>
+      <% if (marketplace[i]){ %>
+        <h2><%= marketplace[i].username %>'s  images</h2>
+        <hr>
+        <%- include ("../partials/images.ejs", {
+          images: marketplace[i].images,
+          ownerName: marketplace[i].username
+        }) %>
+        <% if (marketplace[i].more > 0) { %> 
+          <div style="text-align: right;">
+            <p> and <%= marketplace[i].more %> more images</p>
+          </div>
+        <% } %>
+      <% } %>
+    <% } %>
+  </div>
+</body>
+
+</html>
