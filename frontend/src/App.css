@@ -1,0 +1,54 @@
+:root {
+  --night-background: #041237;
+  --night-popin: #030f30;
+  --night-lighting: #201e6e;
+  --night-shade: #03021b;
+  --night-text: #ffffffbb;
+
+  background-color: var(--night-background);
+  padding: 1rem;
+  color: var(--night-text);
+  font-size: 1.4rem;
+}
+
+.search-bar {
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border-radius: 2rem;
+  color: #ffffff99;
+}
+
+.main-row {
+  display: flex;
+}
+
+.results-panel {
+  flex: 75%;
+  padding: 0.5rem;
+  margin-left: 0.25rem;
+  margin-right: 1rem;
+  border-radius: 2rem;
+}
+
+.nominations-panel {
+  flex: 25%;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 2rem;
+}
+
+.popin {
+  background-color: var(--night-popin);
+  box-shadow: 
+    /* inset 0 0.25rem 2rem 0rem var(--night-shade), */
+    inset 0.25rem 0.25rem 0.5rem 0.2rem var(--night-shade),
+    inset -0.25rem -0.25rem 0.4rem 0 var(--night-lighting);
+}
+
+.popout {
+  background-color: var(--night-background);
+  box-shadow: 
+    0.25rem 0.25rem 0.4rem 0 var(--night-shade),
+    -0.2rem -0.2rem 0.4rem 0rem var(--night-lighting);
+}
