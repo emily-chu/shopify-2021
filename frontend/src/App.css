@@ -4,44 +4,33 @@
   --night-lighting: #201e6e;
   --night-shade: #03021b;
   --night-text: #ffffffbb;
+  --accent: #9a63ba;
+
+  --space: 1rem;
 
   background-color: var(--night-background);
-  padding: 1rem;
+  padding: var(--space);
   color: var(--night-text);
-  font-size: 1.4rem;
+  font-size: 1rem;
 }
 
-.search-bar {
-  padding: 0.75rem;
-  margin-bottom: 1.5rem;
-  border-radius: 2rem;
-  color: #ffffff99;
+.top-row{
+  display:flex;
+  padding-bottom: var(--space);
 }
 
 .main-row {
   display: flex;
 }
 
-.results-panel {
-  flex: 75%;
-  padding: 0.5rem;
-  margin-left: 0.25rem;
-  margin-right: 1rem;
-  border-radius: 2rem;
-}
-
-.nominations-panel {
-  flex: 25%;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-  padding: 0.5rem;
-  border-radius: 2rem;
+.panel {
+  padding: var(--space);
+  border-radius: 1.5rem;
 }
 
 .popin {
   background-color: var(--night-popin);
   box-shadow: 
-    /* inset 0 0.25rem 2rem 0rem var(--night-shade), */
     inset 0.25rem 0.25rem 0.5rem 0.2rem var(--night-shade),
     inset -0.25rem -0.25rem 0.4rem 0 var(--night-lighting);
 }
@@ -51,4 +40,48 @@
   box-shadow: 
     0.25rem 0.25rem 0.4rem 0 var(--night-shade),
     -0.2rem -0.2rem 0.4rem 0rem var(--night-lighting);
+}
+
+#search-bar {
+  padding: calc(0.75*var(--space));
+  margin-bottom: var(--space);
+  border-radius: 1.5rem;
+  border:none;
+  width:100%;
+  box-sizing:border-box;
+  color: inherit;
+} input:hover {
+  box-shadow: 
+    0 0 0 1pt #fff3,
+    inset 0.25rem 0.25rem 0.5rem 0.2rem var(--night-shade),
+    inset -0.25rem -0.25rem 0.4rem 0 var(--night-lighting);
+}input:focus {
+  outline: none; /* overriding defualt bahaviour */
+  box-shadow: 
+    0 0 0 1pt var(--accent),
+    inset 0.25rem 0.25rem 0.5rem 0.2rem var(--night-shade),
+    inset -0.25rem -0.25rem 0.4rem 0 var(--night-lighting);
+} 
+
+#results-panel {
+  flex: 70%;
+  min-width: 20rem;
+  padding: var(--space);
+  margin-left: 0.25rem; /* compensating for shadow */
+  margin-right: var(--space);
+  border-radius: 1.5rem;
+}
+
+#nominations-panel {
+  flex: 30%;
+  min-width: 10rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.movie {
+  line-height: 0rem;
+  padding-bottom: var(--space);
+} img {
+  max-width: 4rem;
 }
