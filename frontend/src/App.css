@@ -82,6 +82,10 @@
 .movie {
   line-height: 0rem;
   padding-bottom: var(--space);
+  display: flex;
 } img {
   max-width: 4rem;
+} .movie-text {
+  padding: var(--space);
+  flex:auto;
 }

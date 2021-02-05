@@ -13,8 +13,12 @@ export default class Movie extends React.Component {
   render() {
     return (
       <div className ="movie">
-        <h4>{this.props.Title + " (" + this.props.Year + ")"}</h4>
-        <img src={this.props.Poster} alt="Movie poster"></img>
+        <div className="">
+          <img src={this.props.Poster} alt="Movie poster"></img>
+        </div>
+        <div className="movie-text">
+          <h4>{this.props.Title + " (" + this.props.Year + ")"}</h4>
+        </div>
       </div>
     );
   }

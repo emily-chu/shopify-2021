@@ -7,8 +7,8 @@ require('dotenv').config();
 const omdbKey = process.env.REACT_APP_OMDB_KEY;
 
 let dummyMovie = {"Title":"Hello World","Year":"2019","imdbID":"tt9418812","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BOGIwYjZlOTctZTNhOC00OTdiLWI5ZWItOTdiMWRjMjUwMDlhXkEyXkFqcGdeQXVyNDQxNjcxNQ@@._V1_SX300.jpg"};
-let dummyMovie2 = {"Title":"Hello World two!!!","Year":"2019","imdbID":"tt9418812","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BOGIwYjZlOTctZTNhOC00OTdiLWI5ZWItOTdiMWRjMjUwMDlhXkEyXkFqcGdeQXVyNDQxNjcxNQ@@._V1_SX300.jpg"};
-let dummyResults = [dummyMovie, dummyMovie2, dummyMovie, dummyMovie2];
+let dummyMovie2 = {"Title":"Hello World two!!!","Year":"2019","imdbID":"tt9418812eeeee","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BOGIwYjZlOTctZTNhOC00OTdiLWI5ZWItOTdiMWRjMjUwMDlhXkEyXkFqcGdeQXVyNDQxNjcxNQ@@._V1_SX300.jpg"};
+let dummyResults = [dummyMovie, dummyMovie2];
 
 function dummyCallback (what){
   //hello
@@ -31,7 +31,7 @@ function App() {
     <div id="results-panel" className="panel popout">
       <SearchBar changeCallback = {dummyCallback}/>
       {dummyResults.map(function (movieProps) {
-        return <Movie {...movieProps} />
+        return <Movie {...movieProps} key={movieProps.imdbID} />
         // ^ thanks stackoverflow very cool https://stackoverflow.com/questions/49081549/passing-object-as-props-to-jsx
       })}
     </div>

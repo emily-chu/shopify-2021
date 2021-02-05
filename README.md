@@ -1,3 +1,6 @@
+# Progress report
+I finished the backend challenge, started the frontend challenge, and then recieved an offer from a different company. Keeping the repo up because I like the little backend thing I made. 
+
 # Backend challenge
 **Tech used:**
 Node.js, express.js, and mongoDB.
@@ -21,4 +24,4 @@ Once you're logged in...
 - Small rendering bugs right after a purchase; may not reflect the current state of the database until a refresh
 
 # Frontend challenge
-TODO
+Not done. Might do this one day for fun, might not.
